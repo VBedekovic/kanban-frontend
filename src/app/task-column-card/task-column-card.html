@@ -1,0 +1,43 @@
+<div class="rounded-lg p-2 shadow-sm bg-white">
+  <div class="task-card-header">
+    <h3>{{ "columnTitle" }}</h3>
+    <button>Add Task</button>
+  </div>
+  <div class="task-list">
+    <div  class="task-item">
+      <h4>{{ "task.title" }}</h4>
+      <p>{{ "task.description" }}</p>
+    </div>
+  </div>
+
+  <div class="mt-6 flex flex-col gap-4">
+    <div>
+      <div class="flex justify-between items-center mb-1">
+        <span class="text-secondary text-sm">Progress</span>
+        <span class="text-secondary text-sm">0%</span>
+      </div>
+      <div class="relative h-2 rounded-full bg-bg-secondary overflow-hidden">
+        <div class="absolute left-0 top-1/2 -translate-y-1/2 w-2 h-2 rounded-full bg-primary"></div>
+      </div>
+    </div>
+
+    <div>
+      <div class="flex justify-between items-center mb-1">
+        <span class="text-secondary text-sm">Progress</span>
+        <span class="text-secondary text-sm">50%</span>
+      </div>
+      <div class="relative h-2 rounded-full bg-bg-secondary overflow-hidden">
+        <div class="absolute left-0 top-0 h-full bg-warning rounded-full" style="width:50%"></div>
+      </div>
+    </div>
+
+    <div>
+      <div class="flex justify-between items-center mb-1">
+        <span class="text-secondary text-sm">Progress</span>
+        <span class="text-secondary text-sm">100%</span>
+      </div>
+      <div class="relative h-2 rounded-full bg-bg-completed overflow-hidden"></div>
+    </div>
+  </div>
+
+</div>
