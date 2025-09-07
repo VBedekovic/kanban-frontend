@@ -1,6 +1,7 @@
 @import "tailwindcss";
+@import 'material-symbols';
 
-:root {
+@theme {
   --color-primary: #6C5DD3;
   --color-warning: #e4c53c;
   --color-bg-primary: #FFFFFF;
@@ -9,37 +10,6 @@
   --color-text-secondary: #7C7C8A;
   --color-text-disabled: #B0B0B8;
   --color-completed: #29CB5C;
-}
 
-body {
-  font-family: 'Inter', sans-serif;
-}
-
-.bg-primary {
-  background-color: var(--color-primary);
-}
-.bg-warning {
-  background-color: var(--color-warning);
-}
-.bg-bg-completed {
-  background-color: var(--color-completed);
-}
-.bg-bg-primary {
-  background-color: var(--color-bg-primary);
-}
-.bg-bg-secondary {
-  background-color: var(--color-bg-secondary);
-}
-
-.text-primary {
-  color: var(--color-text-primary);
-}
-.text-secondary {
-  color: var(--color-text-secondary);
-}
-.text-disabled {
-  color: var(--color-text-disabled);
-}
-.text-completed {
-  color: var(--color-completed);
+  --font-family-base: 'Inter', sans-serif;
 }

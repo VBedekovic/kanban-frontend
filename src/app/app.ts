@@ -1,10 +1,10 @@
 import { Component, signal } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
-import { TaskColumn } from './task-column/task-column';
+import { TaskColumn } from './components/task-column/task-column';
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet, TaskColumn],
+  imports: [RouterOutlet],
   templateUrl: './app.html',
   styleUrl: './app.css'
 })

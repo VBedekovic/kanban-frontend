@@ -1,0 +1,12 @@
+<div class="flex justify-between m-4">
+    <h1 class="text-3xl font-bold mb-4">Task Board</h1>
+    <app-utility-button googleSymbol="sort" label="Sort" />
+</div>
+
+<div class="h-0.5 bg-bg-secondary w-full my-2"></div>
+
+<div class="flex gap-4 overflow-x-auto px-4 pb-4">
+    <app-task-column class="grow" columnTitle="To Do" />
+    <app-task-column class="grow" columnTitle="In Progress" />
+    <app-task-column class="grow" columnTitle="Done" />
+</div>
