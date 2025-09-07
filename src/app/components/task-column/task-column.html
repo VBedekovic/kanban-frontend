@@ -14,7 +14,7 @@
     @if (!loading()) {
       @if (tasks().length > 0) {
         @for (task of tasks(); track task.id) {
-          <app-task-column-card [task]="task" />
+          <app-task-column-card [task]="task" (cardClick)="onEditTaskClick($event)" />
         }
       } @else {
         <div class="text-center text-text-secondary py-4">No tasks</div>

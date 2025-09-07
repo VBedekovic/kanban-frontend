@@ -1,4 +1,4 @@
-import { Component, Input, OnInit, Output, EventEmitter, signal } from '@angular/core';
+import { Component, Input, OnInit, Output, EventEmitter, signal, OnChanges, SimpleChanges } from '@angular/core';
 import { ApiService } from '../../services/api-service';
 import { Task } from '../../types/task-type';
 import { ProgressionType } from '../../types/progression-type';
@@ -12,7 +12,13 @@ import { TaskColumnCard } from '../task-column-card/task-column-card';
   templateUrl: './task-column.html',
   styleUrl: './task-column.css'
 })
-export class TaskColumn implements OnInit {
+export class TaskColumn implements OnInit, OnChanges {
+  @Input() refreshTrigger: number = 0;
+  ngOnChanges(changes: SimpleChanges) {
+    if (changes['refreshTrigger'] && !changes['refreshTrigger'].firstChange) {
+      this.loadTasks();
+    }
+  }
   @Input() columnTitle!: string;
   @Input() progressionType!: ProgressionType;
 

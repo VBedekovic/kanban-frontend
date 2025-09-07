@@ -42,4 +42,8 @@ export class ApiService {
   getTask(id: number): Observable<Task> {
     return this.http.get<Task>(`${this.API_TASKS_URL}/${id}`);
   }
+
+  updateTask(id: number, task: Task): Observable<Task> {
+    return this.http.put<Task>(`${this.API_TASKS_URL}/${id}`, task);
+  }
 }

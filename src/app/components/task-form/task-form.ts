@@ -13,12 +13,23 @@ import { FormsModule } from '@angular/forms';
 export class TaskForm {
   @Input() task: Task | null = null;
   @Input() submitLabel: string = 'Save';
+  @Input() versionConflict: boolean = false;
   @Output() submitTask = new EventEmitter<Task>();
   @Output() cancel = new EventEmitter<void>();
 
   form: Partial<Task> = {};
 
   ngOnInit() {
+    this.resetForm();
+  }
+
+  ngOnChanges(changes: any) {
+    if (changes['task'] && changes['task'].currentValue) {
+      this.resetForm();
+    }
+  }
+
+  resetForm() {
     if (this.task) {
       this.form = { ...this.task };
     } else {

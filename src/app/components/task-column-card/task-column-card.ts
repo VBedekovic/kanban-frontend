@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { Task } from '../../types/task-type';
 import { CommonModule } from '@angular/common';
 
@@ -11,6 +11,11 @@ import { CommonModule } from '@angular/common';
 })
 export class TaskColumnCard {
   @Input() task!: Task;
+  @Output() cardClick = new EventEmitter<Task>();
+
+  onCardClick() {
+    this.cardClick.emit(this.task);
+  }
 
   getProgress(): { percent: number; color: string } {
     switch (this.task.status) {

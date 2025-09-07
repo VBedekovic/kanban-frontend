@@ -13,6 +13,7 @@
       class="grow"
       columnTitle="To Do"
       progressionType="TO_DO"
+      [refreshTrigger]="refreshTrigger()"
       (addTask)="openAddTaskModal('TO_DO')"
       (editTask)="openEditTaskModal($event)"
     />
@@ -20,6 +21,7 @@
       class="grow"
       columnTitle="In Progress"
       progressionType="IN_PROGRESS"
+      [refreshTrigger]="refreshTrigger()"
       (addTask)="openAddTaskModal('IN_PROGRESS')"
       (editTask)="openEditTaskModal($event)"
     />
@@ -27,6 +29,7 @@
       class="grow"
       columnTitle="Done"
       progressionType="DONE"
+      [refreshTrigger]="refreshTrigger()"
       (addTask)="openAddTaskModal('DONE')"
       (editTask)="openEditTaskModal($event)"
     />
@@ -38,6 +41,7 @@
       <app-task-form
         [task]="editingTask()"
         [submitLabel]="editingTask() ? 'Update Task' : 'Add Task'"
+        [versionConflict]="versionConflict()"
         (submitTask)="onSubmitTask($event)"
         (cancel)="closeModal()"
       />
