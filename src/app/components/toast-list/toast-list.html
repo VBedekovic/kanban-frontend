@@ -1,0 +1,8 @@
+<div class="toast-list-container">
+	@for (toast of toasts(); track toast.id) {
+	<div class="toast" [class.show]="true">
+		<span class="toast-message" [innerHTML]="toast.message"></span>
+		<button class="toast-close" (click)="closeToast(toast.id)">&times;</button>
+	</div>
+	}
+</div>
