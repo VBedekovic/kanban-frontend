@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { TaskColumnCard } from '../task-column-card/task-column-card';
 
 @Component({
@@ -8,5 +8,5 @@ import { TaskColumnCard } from '../task-column-card/task-column-card';
   styleUrl: './task-column.css'
 })
 export class TaskColumn {
-
+  @Input() columnTitle!: string;
 }
