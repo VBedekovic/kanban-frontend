@@ -1,4 +1,4 @@
-import { Component, ChangeDetectorRef } from '@angular/core';
+import { Component, signal } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { ApiService } from '../../services/api-service';
@@ -18,18 +18,17 @@ import { Router } from '@angular/router';
 export class AuthView {
   username = '';
   password = '';
-  error: string | null = null;
+  error = signal<string | null>(null);
 
   constructor(
     private apiService: ApiService,
     private authService: AuthService,
-    private router: Router,
-    private cdr: ChangeDetectorRef
+    private router: Router
   ) {}
 
   async onSubmit(event: Event) {
     event.preventDefault();
-    this.error = null;
+    this.error.set(null);
     this.apiService.authenticate(this.username, this.password).subscribe({
       next: (res) => {
         this.authService.setToken(res.token);
@@ -38,8 +37,7 @@ export class AuthView {
         this.router.navigateByUrl(redirectUrl);
       },
       error: () => {
-        this.error = 'Invalid username or password!';
-        this.cdr.markForCheck();
+        this.error.set('Invalid username or password!');
       }
     });
   }

@@ -32,12 +32,12 @@
     />
 </div>
 
-@if (showModal) {
+@if (showModal()) {
   <div class="fixed inset-0 z-50 flex items-center justify-center bg-black/40">
     <div class="bg-white rounded-lg shadow-lg p-6 w-full max-w-lg relative">
       <app-task-form
-        [task]="editingTask"
-        [submitLabel]="editingTask ? 'Update Task' : 'Add Task'"
+        [task]="editingTask()"
+        [submitLabel]="editingTask() ? 'Update Task' : 'Add Task'"
         (submitTask)="onSubmitTask($event)"
         (cancel)="closeModal()"
       />

@@ -1,4 +1,4 @@
-import { Component, Input, OnInit, ChangeDetectorRef, Output, EventEmitter } from '@angular/core';
+import { Component, Input, OnInit, Output, EventEmitter, signal } from '@angular/core';
 import { ApiService } from '../../services/api-service';
 import { Task } from '../../types/task-type';
 import { ProgressionType } from '../../types/progression-type';
@@ -27,55 +27,53 @@ export class TaskColumn implements OnInit {
     this.editTask.emit(task);
   }
 
-  tasks: Task[] = [];
-  page = 0;
+  tasks = signal<Task[]>([]);
+  page = signal(0);
   size = 5;
-  totalPages = 1;
-  totalElements = 0;
-  first = true;
-  last = true;
+  totalPages = signal(1);
+  totalElements = signal(0);
+  first = signal(true);
+  last = signal(true);
 
-  loading = false;
+  loading = signal(false);
 
-  constructor(private apiService: ApiService, private cdr: ChangeDetectorRef) {}
+  constructor(private apiService: ApiService) {}
 
   ngOnInit() {
     this.loadTasks();
   }
 
   loadTasks() {
-    this.loading = true;
-    this.apiService.getTasksPage(this.progressionType, this.page, this.size).subscribe({
+    this.loading.set(true);
+    this.apiService.getTasksPage(this.progressionType, this.page(), this.size).subscribe({
       next: (res) => {
-        this.tasks = res.content;
-        this.totalElements = res.totalElements;
-        this.totalPages = res.totalPages;
-        this.first = res.first;
-        this.last = res.last;
-        this.loading = false;
-        this.cdr.markForCheck();
+        this.tasks.set(res.content);
+        this.totalElements.set(res.totalElements);
+        this.totalPages.set(res.totalPages);
+        this.first.set(res.first);
+        this.last.set(res.last);
+        this.loading.set(false);
       },
       error: () => {
-        this.tasks = [];
-        this.totalPages = 1;
-        this.first = true;
-        this.last = true;
-        this.loading = false;
-        this.cdr.markForCheck();
+        this.tasks.set([]);
+        this.totalPages.set(1);
+        this.first.set(true);
+        this.last.set(true);
+        this.loading.set(false);
       }
     });
   }
 
   prevPage() {
-    if (!this.first) {
-      this.page--;
+    if (!this.first()) {
+      this.page.set(this.page() - 1);
       this.loadTasks();
     }
   }
 
   nextPage() {
-    if (!this.last) {
-      this.page++;
+    if (!this.last()) {
+      this.page.set(this.page() + 1);
       this.loadTasks();
     }
   }

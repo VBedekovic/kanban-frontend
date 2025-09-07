@@ -1,4 +1,4 @@
-import { Component, ChangeDetectorRef } from '@angular/core';
+import { Component, signal } from '@angular/core';
 import { UtilityButton } from '../../components/utility-button/utility-button';
 import { TaskColumn } from '../../components/task-column/task-column';
 import { ApiService } from '../../services/api-service';
@@ -15,39 +15,35 @@ import { CommonModule } from '@angular/common';
   styleUrl: './task-board-view.css'
 })
 export class TaskBoardView {
-  showModal = false;
-  editingTask: Task | null = null;
-  modalProgressionType: string | null = null;
+  showModal = signal(false);
+  editingTask = signal<Task | null>(null);
+  modalProgressionType = signal<string | null>(null);
 
-  constructor(private apiService: ApiService, private cdr: ChangeDetectorRef) { }
+  constructor(private apiService: ApiService) { }
 
   openAddTaskModal(progressionType: string) {
-    this.editingTask = null;
-    this.modalProgressionType = progressionType;
-    this.showModal = true;
-    this.cdr.markForCheck();
+    this.editingTask.set(null);
+    this.modalProgressionType.set(progressionType);
+    this.showModal.set(true);
   }
 
   openEditTaskModal(task: Task) {
-    this.editingTask = task;
-    this.modalProgressionType = task.status;
-    this.showModal = true;
-    this.cdr.markForCheck();
+    this.editingTask.set(task);
+    this.modalProgressionType.set(task.status);
+    this.showModal.set(true);
   }
 
   closeModal() {
-    this.showModal = false;
-    this.editingTask = null;
-    this.modalProgressionType = null;
-    this.cdr.markForCheck();
+    this.showModal.set(false);
+    this.editingTask.set(null);
+    this.modalProgressionType.set(null);
   }
 
   onSubmitTask(task: Task) {
-
-    if (this.editingTask) {
+    if (this.editingTask()) {
       // TODO: Call update API
     } else {
-      this.apiService.postTask({ ...task, status: this.modalProgressionType as ProgressionType }).subscribe(() => {
+      this.apiService.postTask({ ...task, status: this.modalProgressionType() as ProgressionType }).subscribe(() => {
         this.closeModal();
         // TODO refresh columns
       });
