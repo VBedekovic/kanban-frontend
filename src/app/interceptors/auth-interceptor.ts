@@ -20,7 +20,7 @@ export const AuthInterceptor: HttpInterceptorFn = (req, next) => {
   return next(authReq).pipe(
     catchError((error: HttpErrorResponse) => {
         if (error.status === 403) {
-          //localStorage.setItem('redirect_after_login', router.url);
+          localStorage.setItem('redirect_after_login', router.url !== '/auth' ? router.url : '/');
           authService.clearToken();
           router.navigate(['/auth']);
         }
