@@ -1,3 +1,4 @@
+// ...existing code...
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
@@ -45,5 +46,9 @@ export class ApiService {
 
   updateTask(id: number, task: Task): Observable<Task> {
     return this.http.put<Task>(`${this.API_TASKS_URL}/${id}`, task);
+  }
+
+  deleteTask(id: number): Observable<{id: number}> {
+    return this.http.delete<{id: number}>(`${this.API_TASKS_URL}/${id}`);
   }
 }

@@ -1,3 +1,4 @@
+
 import { Component, signal } from '@angular/core';
 import { UtilityButton } from '../../components/utility-button/utility-button';
 import { TaskColumn } from '../../components/task-column/task-column';
@@ -81,4 +82,12 @@ export class TaskBoardView {
       this.creatingNewTask(task);
     }
   }
+
+  onDeleteTask(task: Task) {
+    this.apiService.deleteTask(task.id).subscribe(() => {
+      this.closeModal();
+      this.refreshColumns();
+    });
+  }
+
 }

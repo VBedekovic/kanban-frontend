@@ -16,6 +16,7 @@ export class TaskForm {
   @Input() versionConflict: boolean = false;
   @Output() submitTask = new EventEmitter<Task>();
   @Output() cancel = new EventEmitter<void>();
+  @Output() deleteTask = new EventEmitter<Task>();
 
   form: Partial<Task> = {};
 
@@ -51,5 +52,11 @@ export class TaskForm {
 
   onCancel() {
     this.cancel.emit();
+  }
+
+  onDelete() {
+    if (this.task) {
+      this.deleteTask.emit(this.task);
+    }
   }
 }
