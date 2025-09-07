@@ -1,10 +1,35 @@
-<div class="rounded-lg bg-bg-secondary p-4 shadow-sm">
-    <div class="text-xl font-semibold mb-4">
-        {{ columnTitle }}
-    </div>
-    <div class="flex flex-col gap-3">
-        <app-task-column-card />
-        <app-task-column-card />
-        <app-task-column-card />
-    </div>
+<div class="rounded-lg bg-bg-secondary p-4 shadow-sm flex flex-col h-full">
+  <div class="text-xl font-semibold mb-4">
+    {{ columnTitle }}
+  </div>
+  <div class="flex flex-col gap-3 flex-1">
+    @if (!loading) {
+      @if (tasks.length > 0) {
+        @for (task of tasks; track task.id) {
+          <app-task-column-card [task]="task" />
+        }
+      } @else {
+        <div class="text-center text-text-secondary py-4">No tasks</div>
+      }
+    } @else {
+      <div class="text-center text-text-secondary py-4">Loading...</div>
+    }
+  </div>
+  <div class="flex items-center justify-center gap-2 mt-4">
+    <button
+      class="px-3 py-1 rounded bg-primary text-white disabled:bg-gray-300"
+      (click)="prevPage()"
+      [disabled]="first"
+    >
+      &lt;
+    </button>
+    <span class="mx-2">{{ page + 1 }} / {{ totalPages }}</span>
+    <button
+      class="px-3 py-1 rounded bg-primary text-white disabled:bg-gray-300"
+      (click)="nextPage()"
+      [disabled]="last"
+    >
+      &gt;
+    </button>
+  </div>
 </div>
