@@ -35,6 +35,10 @@ export class ApiService {
     return this.http.get<Page<Task>>(this.API_TASKS_URL, { params });
   }
 
+  postTask(task: Task): Observable<Task> {
+    return this.http.post<Task>(this.API_TASKS_URL, task);
+  }
+
   getTask(id: number): Observable<Task> {
     return this.http.get<Task>(`${this.API_TASKS_URL}/${id}`);
   }

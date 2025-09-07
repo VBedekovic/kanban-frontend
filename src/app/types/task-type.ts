@@ -1,8 +1,11 @@
+import { PriorityType } from "./priority-type";
+import { ProgressionType } from "./progression-type";
+
 export type Task = {
     id: number;
     title: string;
     description: string;
-    status: 'TO_DO' | 'IN_PROGRESS' | 'DONE';
-    priority: 'LOW' | 'MED' | 'HIGH';
+    status: ProgressionType;
+    priority: PriorityType;
     version: number;
 };

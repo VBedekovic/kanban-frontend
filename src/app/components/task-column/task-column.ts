@@ -1,4 +1,4 @@
-import { Component, Input, OnInit, ChangeDetectorRef } from '@angular/core';
+import { Component, Input, OnInit, ChangeDetectorRef, Output, EventEmitter } from '@angular/core';
 import { ApiService } from '../../services/api-service';
 import { Task } from '../../types/task-type';
 import { ProgressionType } from '../../types/progression-type';
@@ -15,6 +15,17 @@ import { TaskColumnCard } from '../task-column-card/task-column-card';
 export class TaskColumn implements OnInit {
   @Input() columnTitle!: string;
   @Input() progressionType!: ProgressionType;
+
+  @Output() addTask = new EventEmitter<void>();
+  @Output() editTask = new EventEmitter<Task>();
+
+  onAddTaskClick() {
+    this.addTask.emit();
+  }
+
+  onEditTaskClick(task: Task) {
+    this.editTask.emit(task);
+  }
 
   tasks: Task[] = [];
   page = 0;
