@@ -1,6 +1,5 @@
 import { Component, signal } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
-import { TaskColumn } from './components/task-column/task-column';
 
 @Component({
   selector: 'app-root',
