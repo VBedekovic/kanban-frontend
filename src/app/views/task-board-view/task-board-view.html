@@ -1,11 +1,14 @@
 <div class="flex justify-between m-4">
-    <h1 class="text-3xl font-bold mb-4">Task Board</h1>
-    <app-utility-button googleSymbol="sort" label="Sort" />
+  <div class="flex gap-2 items-center">
+    <span class="material-symbols-outlined text-primary md-36">task_alt</span>
+    <h1 class="text-3xl font-bold">Task Board</h1>
+  </div>
+  <app-utility-button googleSymbol="sort" label="Sort" />
 </div>
 
 <div class="h-0.5 bg-bg-secondary w-full my-2"></div>
 
-<div class="flex flex-col gap-4 overflow-x-auto px-4 pb-4 md:flex-row">
+<div class="grid grid-cols-1 md:grid-cols-3 gap-4 px-4 pb-4 overflow-x-auto">
     <app-task-column
       class="grow"
       columnTitle="To Do"

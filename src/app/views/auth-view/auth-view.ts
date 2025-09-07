@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ChangeDetectorRef } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { ApiService } from '../../services/api-service';
@@ -23,7 +23,8 @@ export class AuthView {
   constructor(
     private apiService: ApiService,
     private authService: AuthService,
-    private router: Router
+    private router: Router,
+    private cdr: ChangeDetectorRef
   ) {}
 
   async onSubmit(event: Event) {
@@ -37,7 +38,8 @@ export class AuthView {
         this.router.navigateByUrl(redirectUrl);
       },
       error: () => {
-        this.error = 'Invalid username or password';
+        this.error = 'Invalid username or password!';
+        this.cdr.markForCheck();
       }
     });
   }
