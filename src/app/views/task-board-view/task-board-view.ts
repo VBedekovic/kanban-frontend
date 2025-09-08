@@ -23,15 +23,22 @@ export class TaskBoardView {
 
   refreshTrigger = signal(0);
 
+  viewMode = signal<'status' | 'all'>('status');
+
   constructor(private apiService: ApiService) { }
+
+  setViewMode(mode: 'status' | 'all') {
+    this.viewMode.set(mode);
+    this.refreshColumns();
+  }
 
   refreshColumns() {
     this.refreshTrigger.set(this.refreshTrigger() + 1);
   }
 
-  openAddTaskModal(progressionType: string) {
+  openAddTaskModal(progressionType?: string) {
     this.editingTask.set(null);
-    this.modalProgressionType.set(progressionType);
+    this.modalProgressionType.set(progressionType || 'TO_DO');
     this.versionConflict.set(false);
     this.showModal.set(true);
   }
@@ -89,5 +96,4 @@ export class TaskBoardView {
       this.refreshColumns();
     });
   }
-
 }

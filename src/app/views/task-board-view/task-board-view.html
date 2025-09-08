@@ -1,14 +1,36 @@
 <div class="flex justify-between m-4">
-  <div class="flex gap-2 items-center">
-    <span class="material-symbols-outlined text-primary md-36">task_alt</span>
-    <h1 class="text-3xl font-bold">Task Board</h1>
+  <div class="flex flex-col md:flex-row gap-2 md:items-center">
+    <span class="material-symbols-outlined text-primary md-48">task_alt</span>
+    <div>
+      <h1 class="text-3xl font-bold">Task Board</h1>
+      <div class="flex bg-bg-secondary rounded-full p-2 gap-2">
+        <button
+          class="flex items-center gap-2 px-3 py-2 rounded-full transition-colors text-secondary hover:bg-secondary"
+          [ngClass]="{ 'bg-bg-primary': viewMode() === 'status' }"
+          (click)="setViewMode('status')"
+        >
+          <span class="material-symbols-outlined" [ngClass]="{ 'text-primary': viewMode() === 'status' }">view_column</span>
+          <span>By Status View</span>
+        </button>
+        <button
+          class="flex items-center gap-2 px-3 py-2 rounded-full transition-colors text-secondary hover:bg-secondary"
+          [ngClass]="{ 'bg-bg-primary': viewMode() === 'all' }"
+          (click)="setViewMode('all')"
+        >
+          <span class="material-symbols-outlined" [ngClass]="{ 'text-primary': viewMode() === 'all' }">view_list</span>
+          <span>All View</span>
+        </button>
+      </div>
+    </div>
   </div>
   <app-utility-button googleSymbol="sort" label="Sort" />
 </div>
 
 <div class="h-0.5 bg-bg-secondary w-full my-2"></div>
 
-<div class="grid grid-cols-1 md:grid-cols-3 gap-4 px-4 pb-4 overflow-x-auto">
+<div class="grid gap-4 px-4 pb-4 overflow-x-auto"
+     [ngClass]="viewMode() === 'status' ? 'grid-cols-1 md:grid-cols-3' : 'grid-cols-1'">
+  @if (viewMode() === 'status') {
     <app-task-column
       class="grow"
       columnTitle="To Do"
@@ -33,6 +55,15 @@
       (addTask)="openAddTaskModal('DONE')"
       (editTask)="openEditTaskModal($event)"
     />
+  } @else {
+    <app-task-column
+      class="grow"
+      columnTitle="All Tasks"
+      [refreshTrigger]="refreshTrigger()"
+      (addTask)="openAddTaskModal()"
+      (editTask)="openEditTaskModal($event)"
+    />
+  }
 </div>
 
 @if (showModal()) {

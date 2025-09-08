@@ -4,6 +4,7 @@ import { Observable } from 'rxjs';
 import { Task } from '../types/task-type';
 import { environment } from '../../environments/environment';
 import { Page } from '../types/page-type';
+import { TasksQueryParams } from '../types/tasks-query-params-type';
 
 @Injectable({
   providedIn: 'root'
@@ -19,16 +20,18 @@ export class ApiService {
   }
 
   getTasksPage(
-    status: string,
     page: number,
     size: number,
+    status?: string,
     sort?: string
   ): Observable<Page<Task>> {
-    const params: any = {
-      status,
-      page: page.toString(),
-      size: size.toString()
+    const params: TasksQueryParams = {
+      page: page,
+      size: size
     };
+    if (status) {
+      params.status = status;
+    }
     if (sort) {
       params.sort = sort;
     }

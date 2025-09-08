@@ -20,7 +20,7 @@ export class TaskColumn implements OnInit, OnChanges {
     }
   }
   @Input() columnTitle!: string;
-  @Input() progressionType!: ProgressionType;
+  @Input() progressionType?: ProgressionType;
 
   @Output() addTask = new EventEmitter<void>();
   @Output() editTask = new EventEmitter<Task>();
@@ -51,7 +51,7 @@ export class TaskColumn implements OnInit, OnChanges {
 
   loadTasks() {
     this.loading.set(true);
-    this.apiService.getTasksPage(this.progressionType, this.page(), this.size).subscribe({
+    this.apiService.getTasksPage(this.page(), this.size, this.progressionType).subscribe({
       next: (res) => {
         this.tasks.set(res.content);
         this.totalElements.set(res.totalElements);
