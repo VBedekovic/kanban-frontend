@@ -5,7 +5,7 @@
       <h1 class="text-3xl font-bold">Task Board</h1>
       <div class="flex bg-bg-secondary rounded-full p-2 gap-2">
         <button
-          class="flex items-center gap-2 px-3 py-2 rounded-full transition-colors text-secondary hover:bg-secondary"
+          class="flex items-center gap-2 px-3 py-2 rounded-full transition-colors text-secondary cursor-pointer hover:bg-secondary"
           [ngClass]="{ 'bg-bg-primary': viewMode() === 'status' }"
           (click)="setViewMode('status')"
         >
@@ -13,7 +13,7 @@
           <span class="text-sm">By Status View</span>
         </button>
         <button
-          class="flex items-center gap-2 px-3 py-2 rounded-full transition-colors text-secondary hover:bg-secondary"
+          class="flex items-center gap-2 px-3 py-2 rounded-full transition-colors text-secondary cursor-pointer hover:bg-secondary"
           [ngClass]="{ 'bg-bg-primary': viewMode() === 'all' }"
           (click)="setViewMode('all')"
         >
