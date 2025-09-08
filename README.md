@@ -1,59 +1,37 @@
-# KanbanFrontend
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 20.2.2.
+# Kanban Frontend
 
-## Development server
+This is the frontend application for a Kanban board, built with Angular. It provides a user interface for managing tasks, columns, and workflow in a Kanban-style board.
 
-To start a local development server, run:
+## Prerequisites
 
-```bash
+This project requires the [kanban-api backend](https://github.com/VBedekovic/kanban-api) to be running for full functionality. Please clone and start the backend repository before running the frontend.
+
+## Local Development
+
+To run the frontend locally, use the following command:
+
+```
 ng serve
 ```
 
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
+This will start the development server, and the application will be available at `http://localhost:4200/` by default.
 
-## Code scaffolding
+## Project Structure
 
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
+- `src/app/` - Main application code and components
+- `src/environments/` - Environment configuration files
 
-```bash
-ng generate component component-name
-```
+## Getting Started
 
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
-
-```bash
-ng generate --help
-```
-
-## Building
-
-To build the project run:
-
-```bash
-ng build
-```
-
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
-
-## Running unit tests
-
-To execute unit tests with the [Karma](https://karma-runner.github.io) test runner, use the following command:
-
-```bash
-ng test
-```
-
-## Running end-to-end tests
-
-For end-to-end (e2e) testing, run:
-
-```bash
-ng e2e
-```
-
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
-
-## Additional Resources
-
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+1. Clone this repository.
+2. Install dependencies:
+	```
+	npm install
+	```
+3. Start the backend ([kanban-api](https://github.com/VBedekovic/kanban-api)).
+4. Start the frontend with a globally installed Angular CLI:
+	```
+	ng serve
+	```
+5. Open your browser at [http://localhost:4200/](http://localhost:4200/)
