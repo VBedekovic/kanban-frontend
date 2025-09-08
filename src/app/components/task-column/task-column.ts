@@ -1,9 +1,11 @@
-import { Component, Input, OnInit, Output, EventEmitter, signal, OnChanges, SimpleChanges } from '@angular/core';
+
+import { Component, Input, OnInit, Output, EventEmitter, signal, OnChanges, SimpleChanges, effect } from '@angular/core';
 import { ApiService } from '../../services/api-service';
 import { Task } from '../../types/task-type';
 import { ProgressionType } from '../../types/progression-type';
 import { CommonModule } from '@angular/common';
 import { TaskColumnCard } from '../task-column-card/task-column-card';
+import { RequestStoreService } from '../../services/request-store-service';
 
 @Component({
   selector: 'app-task-column',
@@ -36,6 +38,7 @@ export class TaskColumn implements OnInit, OnChanges {
   tasks = signal<Task[]>([]);
   page = signal(0);
   size = 5;
+  sortParams: string[] = [];
   totalPages = signal(1);
   totalElements = signal(0);
   first = signal(true);
@@ -43,7 +46,15 @@ export class TaskColumn implements OnInit, OnChanges {
 
   loading = signal(false);
 
-  constructor(private apiService: ApiService) {}
+
+  constructor(private apiService: ApiService, private requestStore: RequestStoreService) {
+    effect(() => {
+      this.requestStore.sortOptions();
+      this.sortParams = this.requestStore.getSortParams();
+      this.loadTasks();
+    });
+    this.sortParams = this.requestStore.getSortParams();
+  }
 
   ngOnInit() {
     this.loadTasks();
@@ -51,7 +62,7 @@ export class TaskColumn implements OnInit, OnChanges {
 
   loadTasks() {
     this.loading.set(true);
-    this.apiService.getTasksPage(this.page(), this.size, this.progressionType).subscribe({
+    this.apiService.getTasksPage(this.page(), this.size, this.progressionType, this.sortParams.length ? this.sortParams : undefined).subscribe({
       next: (res) => {
         this.tasks.set(res.content);
         this.totalElements.set(res.totalElements);

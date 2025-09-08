@@ -24,8 +24,8 @@
     </div>
   </div>
   <div>
-    <app-utility-button googleSymbol="sort" label="Sort" />
-    <app-utility-button googleSymbol="format_list_numbered" label="Page Size" />
+    <app-utility-button googleSymbol="sort" label="Sort" (click)="openSortModal()" />
+    <!-- <app-utility-button googleSymbol="format_list_numbered" label="Page Size" /> -->
   </div>
 </div>
 
@@ -88,5 +88,19 @@
         <span class="material-symbols-outlined">close</span>
       </button>
       </div>
+  </div>
+}
+
+@if (showSortModal()) {
+  <div class="fixed inset-0 z-50 flex items-center justify-center bg-black/40">
+    <div class="bg-white rounded-lg shadow-lg p-6 w-full max-w-lg relative">
+      <app-sort-form (close)="closeSortModal()" />
+      <button
+        class="absolute top-2 right-2 text-gray-400 hover:text-gray-700"
+        (click)="closeSortModal()"
+      >
+        <span class="material-symbols-outlined">close</span>
+      </button>
+    </div>
   </div>
 }

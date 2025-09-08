@@ -1,0 +1,28 @@
+
+<h2 class="text-xl font-bold mb-4">Sort Tasks</h2>
+
+<form (ngSubmit)="save()" class="flex flex-col gap-4">
+	@for (opt of sortOptions; track $index) {
+		<div class="flex items-center gap-2">
+			<select [(ngModel)]="opt.field" name="field-{{$index}}" class="border rounded px-2 py-1" [ngModelOptions]="{standalone: true}">
+				@for (field of availableFields; track field) {
+					<option [value]="field" [disabled]="isFieldDisabled(field, $index)">
+						{{ fieldLabels[field] }}
+					</option>
+				}
+			</select>
+			<select [(ngModel)]="opt.direction" name="dir-{{$index}}" class="border rounded px-2 py-1" [ngModelOptions]="{standalone: true}">
+				<option value="asc">Ascending</option>
+				<option value="desc">Descending</option>
+			</select>
+			<button type="button" (click)="moveSortField($index, -1)" [disabled]="$index === 0" class="px-1 cursor-pointer"><span class="material-symbols-outlined">arrow_upward</span></button>
+			<button type="button" (click)="moveSortField($index, 1)" [disabled]="$index === sortOptions.length - 1" class="px-1 cursor-pointer"><span class="material-symbols-outlined">arrow_downward</span></button>
+			<button type="button" (click)="removeSortField($index)" class="px-1 text-red-600 cursor-pointer"><span class="material-symbols-outlined">close</span></button>
+		</div>
+	}
+	<button type="button" (click)="addSortField()" [disabled]="sortOptions.length >= availableFields.length" class="border rounded px-2 py-1 w-fit">Add Sort Field</button>
+	<div class="flex gap-2 justify-end mt-4">
+		<button type="button" (click)="cancel()" class="border rounded px-4 py-2">Cancel</button>
+		<button type="submit" class="bg-primary text-white rounded px-4 py-2">Save</button>
+	</div>
+</form>

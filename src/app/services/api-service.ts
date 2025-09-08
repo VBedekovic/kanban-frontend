@@ -23,7 +23,7 @@ export class ApiService {
     page: number,
     size: number,
     status?: string,
-    sort?: string
+    sort?: string | string[]
   ): Observable<Page<Task>> {
     const params: TasksQueryParams = {
       page: page,

@@ -1,22 +1,25 @@
 
 import { Component, signal } from '@angular/core';
+
 import { UtilityButton } from '../../components/utility-button/utility-button';
 import { TaskColumn } from '../../components/task-column/task-column';
 import { ApiService } from '../../services/api-service';
 import { ProgressionType } from '../../types/progression-type';
 import { Task } from '../../types/task-type';
 import { TaskForm } from '../../components/task-form/task-form';
+import { SortForm } from '../../components/sort-form/sort-form';
 import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-task-board-view',
   standalone: true,
-  imports: [UtilityButton, TaskColumn, TaskForm, CommonModule],
+  imports: [UtilityButton, TaskColumn, TaskForm, SortForm, CommonModule],
   templateUrl: './task-board-view.html',
   styleUrl: './task-board-view.css'
 })
 export class TaskBoardView {
   showModal = signal(false);
+  showSortModal = signal(false);
   editingTask = signal<Task | null>(null);
   modalProgressionType = signal<string | null>(null);
   versionConflict = signal(false);
@@ -55,6 +58,14 @@ export class TaskBoardView {
     this.editingTask.set(null);
     this.modalProgressionType.set(null);
     this.versionConflict.set(false);
+  }
+
+  openSortModal() {
+    this.showSortModal.set(true);
+  }
+
+  closeSortModal() {
+    this.showSortModal.set(false);
   }
 
   creatingNewTask(task: Task) {
