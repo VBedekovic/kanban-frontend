@@ -42,6 +42,7 @@
         [task]="editingTask()"
         [submitLabel]="editingTask() ? 'Update Task' : 'Add Task'"
         [versionConflict]="versionConflict()"
+        [initialStatus]="editingTask() ? null : modalProgressionType()"
         (submitTask)="onSubmitTask($event)"
         (cancel)="closeModal()"
         (deleteTask)="onDeleteTask($event)"

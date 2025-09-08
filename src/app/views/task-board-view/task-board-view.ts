@@ -51,7 +51,7 @@ export class TaskBoardView {
   }
 
   creatingNewTask(task: Task) {
-    this.apiService.postTask({ ...task, status: this.modalProgressionType() as ProgressionType }).subscribe(() => {
+    this.apiService.postTask(task).subscribe(() => {
       this.closeModal();
       this.refreshColumns();
     });

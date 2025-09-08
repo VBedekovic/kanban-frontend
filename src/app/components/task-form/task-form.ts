@@ -2,6 +2,7 @@ import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Task } from '../../types/task-type';
 import { FormsModule } from '@angular/forms';
+import { ProgressionType } from '../../types/progression-type';
 
 @Component({
   selector: 'app-task-form',
@@ -14,6 +15,7 @@ export class TaskForm {
   @Input() task: Task | null = null;
   @Input() submitLabel: string = 'Save';
   @Input() versionConflict: boolean = false;
+  @Input() initialStatus: string | null = null;
   @Output() submitTask = new EventEmitter<Task>();
   @Output() cancel = new EventEmitter<void>();
   @Output() deleteTask = new EventEmitter<Task>();
@@ -25,7 +27,7 @@ export class TaskForm {
   }
 
   ngOnChanges(changes: any) {
-    if (changes['task'] && changes['task'].currentValue) {
+    if ((changes['task'] && changes['task'].currentValue) || (changes['initialStatus'] && changes['initialStatus'].currentValue)) {
       this.resetForm();
     }
   }
@@ -37,7 +39,7 @@ export class TaskForm {
       this.form = {
         title: '',
         description: '',
-        status: 'TO_DO',
+        status: (this.initialStatus as ProgressionType) || 'TO_DO',
         priority: 'LOW',
         version: 0
       };
