@@ -9,21 +9,24 @@
           [ngClass]="{ 'bg-bg-primary': viewMode() === 'status' }"
           (click)="setViewMode('status')"
         >
-          <span class="material-symbols-outlined" [ngClass]="{ 'text-primary': viewMode() === 'status' }">view_column</span>
-          <span>By Status View</span>
+          <span class="material-symbols-outlined md-20" [ngClass]="{ 'text-primary': viewMode() === 'status' }">view_column</span>
+          <span class="text-sm">By Status View</span>
         </button>
         <button
           class="flex items-center gap-2 px-3 py-2 rounded-full transition-colors text-secondary hover:bg-secondary"
           [ngClass]="{ 'bg-bg-primary': viewMode() === 'all' }"
           (click)="setViewMode('all')"
         >
-          <span class="material-symbols-outlined" [ngClass]="{ 'text-primary': viewMode() === 'all' }">view_list</span>
-          <span>All View</span>
+          <span class="material-symbols-outlined md-20" [ngClass]="{ 'text-primary': viewMode() === 'all' }">view_list</span>
+          <span class="text-sm">All View</span>
         </button>
       </div>
     </div>
   </div>
-  <app-utility-button googleSymbol="sort" label="Sort" />
+  <div>
+    <app-utility-button googleSymbol="sort" label="Sort" />
+    <app-utility-button googleSymbol="format_list_numbered" label="Page Size" />
+  </div>
 </div>
 
 <div class="h-0.5 bg-bg-secondary w-full my-2"></div>
