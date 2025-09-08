@@ -1,0 +1,14 @@
+
+<h2 class="text-xl font-bold mb-4">Page Size</h2>
+<form (ngSubmit)="save()" class="flex flex-col gap-4">
+	<label for="page-size" class="font-medium">Select page size:</label>
+	<select id="page-size" [(ngModel)]="selected" name="pageSize" class="border rounded px-2 py-1 w-32" [ngModelOptions]="{standalone: true}">
+		@for (size of pageSizes; track size) {
+			<option [value]="size">{{ size }}</option>
+		}
+	</select>
+	<div class="flex gap-2 justify-end mt-4">
+		<button type="button" (click)="cancel()" class="border rounded px-4 py-2">Cancel</button>
+		<button type="submit" class="bg-primary text-white rounded px-4 py-2">Save</button>
+	</div>
+</form>

@@ -8,18 +8,20 @@ import { ProgressionType } from '../../types/progression-type';
 import { Task } from '../../types/task-type';
 import { TaskForm } from '../../components/task-form/task-form';
 import { SortForm } from '../../components/sort-form/sort-form';
+import { PageSizeForm } from '../../components/page-size-form/page-size-form';
 import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-task-board-view',
   standalone: true,
-  imports: [UtilityButton, TaskColumn, TaskForm, SortForm, CommonModule],
+  imports: [UtilityButton, TaskColumn, TaskForm, SortForm, PageSizeForm, CommonModule],
   templateUrl: './task-board-view.html',
   styleUrl: './task-board-view.css'
 })
 export class TaskBoardView {
   showModal = signal(false);
   showSortModal = signal(false);
+  showPageSizeModal = signal(false);
   editingTask = signal<Task | null>(null);
   modalProgressionType = signal<string | null>(null);
   versionConflict = signal(false);
@@ -66,6 +68,14 @@ export class TaskBoardView {
 
   closeSortModal() {
     this.showSortModal.set(false);
+  }
+
+  openPageSizeModal() {
+    this.showPageSizeModal.set(true);
+  }
+
+  closePageSizeModal() {
+    this.showPageSizeModal.set(false);
   }
 
   creatingNewTask(task: Task) {

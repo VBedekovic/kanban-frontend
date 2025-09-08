@@ -37,7 +37,7 @@ export class TaskColumn implements OnInit, OnChanges {
 
   tasks = signal<Task[]>([]);
   page = signal(0);
-  size = 5;
+  size = 10;
   sortParams: string[] = [];
   totalPages = signal(1);
   totalElements = signal(0);
@@ -53,7 +53,12 @@ export class TaskColumn implements OnInit, OnChanges {
       this.sortParams = this.requestStore.getSortParams();
       this.loadTasks();
     });
+    effect(() => {
+      this.size = this.requestStore.pageSize();
+      this.loadTasks();
+    });
     this.sortParams = this.requestStore.getSortParams();
+    this.size = this.requestStore.pageSize();
   }
 
   ngOnInit() {

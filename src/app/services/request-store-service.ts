@@ -14,8 +14,14 @@ export interface SortOption {
 export class RequestStoreService {
   sortOptions = signal<SortOption[]>([{ field: 'id', direction: 'desc' }]);
 
+  pageSize = signal<number>(10);
+
   setSortOptions(options: SortOption[]) {
     this.sortOptions.set(options);
+  }
+
+  setPageSize(size: number) {
+    this.pageSize.set(size);
   }
 
   getSortParams(): string[] {
