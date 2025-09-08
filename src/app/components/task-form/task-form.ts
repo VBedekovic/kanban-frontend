@@ -21,6 +21,10 @@ export class TaskForm {
   @Output() deleteTask = new EventEmitter<Task>();
 
   form: Partial<Task> = {};
+  titleTouched = false;
+  descriptionTouched = false;
+  titleError = '';
+  descriptionError = '';
 
   ngOnInit() {
     this.resetForm();
@@ -47,7 +51,20 @@ export class TaskForm {
   }
 
   onSubmit() {
-    if (this.form.title && this.form.description && this.form.status && this.form.priority) {
+    this.titleTouched = true;
+    this.descriptionTouched = true;
+    this.titleError = '';
+    this.descriptionError = '';
+    let valid = true;
+    if (!this.form.title || this.form.title.trim() === '') {
+      this.titleError = 'Title cannot be empty.';
+      valid = false;
+    }
+    if (!this.form.description || this.form.description.trim() === '') {
+      this.descriptionError = 'Description cannot be empty.';
+      valid = false;
+    }
+    if (valid && this.form.status && this.form.priority) {
       this.submitTask.emit(this.form as Task);
     }
   }
@@ -59,6 +76,23 @@ export class TaskForm {
   onDelete() {
     if (this.task) {
       this.deleteTask.emit(this.task);
+    }
+  }
+  onTitleBlur() {
+    this.titleTouched = true;
+    if (!this.form.title || this.form.title.trim() === '') {
+      this.titleError = 'Title cannot be empty.';
+    } else {
+      this.titleError = '';
+    }
+  }
+
+  onDescriptionBlur() {
+    this.descriptionTouched = true;
+    if (!this.form.description || this.form.description.trim() === '') {
+      this.descriptionError = 'Description cannot be empty.';
+    } else {
+      this.descriptionError = '';
     }
   }
 }
